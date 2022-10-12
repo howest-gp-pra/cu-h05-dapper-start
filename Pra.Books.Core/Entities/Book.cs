@@ -50,16 +50,12 @@ namespace Pra.Books.Core.Entities
             }
         }
 
-        public Book(string title, Author author, Publisher publisher, int year) : this(Guid.NewGuid(), title, year)
+        public Book(string title, Author author, Publisher publisher, int year)
         {
+            Id = Guid.NewGuid();
+            Title = title;
             Author = author;
             Publisher = publisher;
-        }
-
-        internal Book(Guid id, string title, int year)
-        {
-            Id = id;
-            Title = title;
             Year = year;
         }
 

@@ -26,11 +26,6 @@ namespace Pra.Books.Core.Entities
             Name = name;
         }
 
-        internal Publisher(Guid id, string name) : this(name)
-        {
-            Id = id;
-        }
-
         public override string ToString()
         {
             return name;
