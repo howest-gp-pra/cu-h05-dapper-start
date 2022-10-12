@@ -16,8 +16,6 @@ namespace Pra.Books.Core.Entities
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new Exception("Titel boek kan niet leeg zijn");
-                if (value.Length > 100)
-                    value = value.Substring(0, 100);
                 title = value;
             }
         }

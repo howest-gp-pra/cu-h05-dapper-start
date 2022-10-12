@@ -14,8 +14,6 @@ namespace Pra.Books.Core.Entities
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new Exception("Naam auteur kan niet leeg zijn");
-                if (value.Length > 100)
-                    value = value.Substring(0, 100);
                 name = value;
             }
         }
