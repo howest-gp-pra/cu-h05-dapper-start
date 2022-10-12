@@ -7,7 +7,7 @@ namespace Pra.Books.Core.Entities
         private Author author;
         private Publisher publisher;
 
-        public Guid Id { get; internal set; }
+        public Guid Id { get; }
 
         public string Title
         {
