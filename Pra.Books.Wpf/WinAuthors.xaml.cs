@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Pra.Books.Core.Entities;
-using Pra.Books.Core.Services;
 using Pra.Books.Core.Interfaces;
-using System.Xml.Linq;
 
 
 namespace Pra.Books.Wpf
@@ -43,14 +31,13 @@ namespace Pra.Books.Wpf
 
         private void PopulateAuthors(Author authorToSelect = null)
         {
-            lstAuthors.SelectedValuePath = "Id";
             lstAuthors.ItemsSource = bibService.Authors;
 
             if(authorToSelect != null)
             {
                 // eerst deselecteren om refresh te forceren indien zelfde auteur geselecteerd blijft
                 lstAuthors.UnselectAll();
-                lstAuthors.SelectedValue = authorToSelect.Id;
+                lstAuthors.SelectedItem = authorToSelect;
             }
         }
 

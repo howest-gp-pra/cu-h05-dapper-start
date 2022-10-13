@@ -31,8 +31,6 @@ namespace Pra.Books.Wpf
         private void PopulateBooks(Book bookToSelect = null)
         {
             ClearControls();
-
-            lstBooks.SelectedValuePath = "Id";
             
             Author author = (Author)cmbFilterAuthor.SelectedItem;
             Publisher publisher = (Publisher)cmbFilterPublisher.SelectedItem;
@@ -42,7 +40,7 @@ namespace Pra.Books.Wpf
             {
                 // eerst deselecteren om refresh te forceren indien zelfde boek geselecteerd blijft
                 lstBooks.UnselectAll();
-                lstBooks.SelectedValue = bookToSelect.Id;
+                lstBooks.SelectedItem = bookToSelect;
             }
         }
 
@@ -57,10 +55,7 @@ namespace Pra.Books.Wpf
 
         private void PopulateAuthors()
         {
-            Author filterAuthor = (Author)cmbFilterAuthor.SelectedItem;
-
-            cmbFilterAuthor.SelectedValuePath = "Id";
-            cmbAuthor.SelectedValuePath = "Id";
+            Author filterAuthor = (Author)cmbFilterAuthor.SelectedItem;;
 
             cmbFilterAuthor.ItemsSource = null;
             cmbAuthor.ItemsSource = null;
@@ -71,16 +66,13 @@ namespace Pra.Books.Wpf
             // herstel filter op auteur indien aanvankelijk reeds geselecteerd
             if(filterAuthor != null)
             {
-                cmbFilterAuthor.SelectedValue = filterAuthor.Id;
+                cmbFilterAuthor.SelectedItem = filterAuthor;
             }
         }
 
         private void PopulatePublishers()
         {
             Publisher filterPublisher = (Publisher)cmbFilterPublisher.SelectedItem;
-
-            cmbFilterPublisher.SelectedValuePath = "Id";
-            cmbPublisher.SelectedValuePath = "Id";
 
             cmbFilterPublisher.ItemsSource = null;
             cmbPublisher.ItemsSource = null;
@@ -91,7 +83,7 @@ namespace Pra.Books.Wpf
             // herstel filter op uitgeverij indien aanvankelijk reeds geselecteerd
             if (filterPublisher != null)
             {
-                cmbFilterPublisher.SelectedValue = filterPublisher.Id;
+                cmbFilterPublisher.SelectedItem = filterPublisher;
             }
         }
 
@@ -152,8 +144,8 @@ namespace Pra.Books.Wpf
                 Book book = (Book)lstBooks.SelectedItem;
                 txtTitle.Text = book.Title;
                 txtYear.Text = book.Year.ToString();
-                cmbAuthor.SelectedValue = book.Author.Id;
-                cmbPublisher.SelectedValue = book.Publisher.Id;
+                cmbAuthor.SelectedItem = book.Author;
+                cmbPublisher.SelectedItem = book.Publisher;
             }
         }
 
