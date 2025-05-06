@@ -1,17 +1,16 @@
 ﻿using Pra.Books.Core.Entities;
 
 namespace Pra.Books.Core.Interfaces
-{   
+{
     public interface IBookService
     {
-        IEnumerable<Author> Authors { get; }
-        IEnumerable<Publisher> Publishers { get; }
-
+        IEnumerable<Author> GetAuthors();
         bool AddAuthor(Author author);
         bool UpdateAuthor(Author author);
         bool DeleteAuthor(Author author);
         bool IsAuthorInUse(Author author);
 
+        IEnumerable<Publisher> GetPublishers();
         bool AddPublisher(Publisher publisher);
         bool UpdatePublisher(Publisher publisher);
         bool DeletePublisher(Publisher publisher);
@@ -21,5 +20,6 @@ namespace Pra.Books.Core.Interfaces
         bool AddBook(Book book);
         bool UpdateBook(Book book);
         bool DeleteBook(Book book);
+
     }
 }

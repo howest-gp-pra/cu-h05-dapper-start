@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Pra.Books.Core.Entities;
+using Pra.Books.Core.Services;
 using Pra.Books.Core.Interfaces;
 
 
@@ -31,9 +32,9 @@ namespace Pra.Books.Wpf
 
         private void PopulateAuthors(Author authorToSelect = null)
         {
-            lstAuthors.ItemsSource = bibService.Authors;
+            lstAuthors.ItemsSource = bibService.GetAuthors();
 
-            if(authorToSelect != null)
+            if (authorToSelect != null)
             {
                 // eerst deselecteren om refresh te forceren indien zelfde auteur geselecteerd blijft
                 lstAuthors.UnselectAll();
@@ -44,7 +45,7 @@ namespace Pra.Books.Wpf
         private void RefreshSelectedAuthor()
         {
             Author author = (Author)lstAuthors.SelectedItem;
-            if(author != null)
+            if (author != null)
             {
                 PopulateAuthors(author);
             }
@@ -76,7 +77,7 @@ namespace Pra.Books.Wpf
         private void LstAuthors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ClearControls();
-            if(lstAuthors.SelectedItem != null)
+            if (lstAuthors.SelectedItem != null)
             {
                 Author author = (Author)lstAuthors.SelectedItem;
                 txtName.Text = author.Name;

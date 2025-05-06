@@ -2,13 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using Pra.Books.Core.Entities;
+using Pra.Books.Core.Services;
 using Pra.Books.Core.Interfaces;
 
 namespace Pra.Books.Wpf
 {
-    /// <summary>
-    /// Interaction logic for WinPublishers.xaml
-    /// </summary>
+
     public partial class WinPublishers : Window
     {
         private readonly IBookService bibService;
@@ -30,9 +29,9 @@ namespace Pra.Books.Wpf
 
         private void PopulatePublishers(Publisher publisherToSelect = null)
         {
-            lstPublishers.ItemsSource = bibService.Publishers;
+            lstPublishers.ItemsSource = bibService.GetPublishers();
 
-            if(publisherToSelect != null)
+            if (publisherToSelect != null)
             {
                 // eerst deselecteren om refresh te forceren indien zelfde uitgever geselecteerd blijft
                 lstPublishers.UnselectAll();
@@ -43,7 +42,7 @@ namespace Pra.Books.Wpf
         private void RefreshSelectedPublisher()
         {
             Publisher publisher = (Publisher)lstPublishers.SelectedItem;
-            if(publisher != null)
+            if (publisher != null)
             {
                 PopulatePublishers(publisher);
             }
@@ -110,7 +109,7 @@ namespace Pra.Books.Wpf
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             string name = txtName.Text.Trim();
-            
+
             if (isNew)
             {
                 AddPublisher(name);

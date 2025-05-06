@@ -31,12 +31,12 @@ namespace Pra.Books.Wpf
         private void PopulateBooks(Book bookToSelect = null)
         {
             ClearControls();
-            
+
             Author author = (Author)cmbFilterAuthor.SelectedItem;
             Publisher publisher = (Publisher)cmbFilterPublisher.SelectedItem;
             lstBooks.ItemsSource = bibService.GetBooks(author, publisher);
 
-            if(bookToSelect != null)
+            if (bookToSelect != null)
             {
                 // eerst deselecteren om refresh te forceren indien zelfde boek geselecteerd blijft
                 lstBooks.UnselectAll();
@@ -47,7 +47,7 @@ namespace Pra.Books.Wpf
         private void RefreshSelectedBook()
         {
             Book book = (Book)lstBooks.SelectedItem;
-            if(book != null)
+            if (book != null)
             {
                 PopulateBooks(book);
             }
@@ -55,16 +55,16 @@ namespace Pra.Books.Wpf
 
         private void PopulateAuthors()
         {
-            Author filterAuthor = (Author)cmbFilterAuthor.SelectedItem;;
+            Author filterAuthor = (Author)cmbFilterAuthor.SelectedItem;
 
             cmbFilterAuthor.ItemsSource = null;
             cmbAuthor.ItemsSource = null;
 
-            cmbFilterAuthor.ItemsSource = bibService.Authors;
-            cmbAuthor.ItemsSource = bibService.Authors;
+            cmbFilterAuthor.ItemsSource = bibService.GetAuthors();
+            cmbAuthor.ItemsSource = bibService.GetAuthors();
 
             // herstel filter op auteur indien aanvankelijk reeds geselecteerd
-            if(filterAuthor != null)
+            if (filterAuthor != null)
             {
                 cmbFilterAuthor.SelectedItem = filterAuthor;
             }
@@ -77,8 +77,8 @@ namespace Pra.Books.Wpf
             cmbFilterPublisher.ItemsSource = null;
             cmbPublisher.ItemsSource = null;
 
-            cmbFilterPublisher.ItemsSource = bibService.Publishers;
-            cmbPublisher.ItemsSource = bibService.Publishers;
+            cmbFilterPublisher.ItemsSource = bibService.GetPublishers();
+            cmbPublisher.ItemsSource = bibService.GetPublishers();
 
             // herstel filter op uitgeverij indien aanvankelijk reeds geselecteerd
             if (filterPublisher != null)
@@ -125,14 +125,14 @@ namespace Pra.Books.Wpf
 
         private void BtnClearFilterAuthor_Click(object sender, RoutedEventArgs e)
         {
-            // door selectie aan te passen wordt selection changed handler van combobox afgevuurd
+            //door selectie aan te passen wordt selection changed handler van combobox afgevuurd
             // en zo uiteindelijk ook de boekenlijst automatisch vernieuwd
             cmbFilterAuthor.SelectedIndex = -1;
         }
 
         private void BtnClearFilterPublisher_Click(object sender, RoutedEventArgs e)
         {
-            // door selectie aan te passen wordt selection changed handler van combobox afgevuurd
+            //door selectie aan te passen wordt selection changed handler van combobox afgevuurd
             // en zo uiteindelijk ook de boekenlijst automatisch vernieuwd
             cmbFilterPublisher.SelectedIndex = -1;
         }
@@ -188,14 +188,14 @@ namespace Pra.Books.Wpf
                 ShowError("Je dient een auteur te selecteren!", "Fout", cmbAuthor);
                 return;
             }
-            
+
             Publisher publisher = (Publisher)cmbPublisher.SelectedItem;
             if (publisher == null)
             {
                 ShowError("Je dient een uitgeverij te selecteren!", "Fout", cmbPublisher);
                 return;
             }
-            
+
             bool yearOk = int.TryParse(txtYear.Text, out int year);
             if (!yearOk)
             {
@@ -266,7 +266,7 @@ namespace Pra.Books.Wpf
         private void ShowError(string message, string title, Control controlToFocus = null)
         {
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
-            if(controlToFocus != null)
+            if (controlToFocus != null)
             {
                 controlToFocus.Focus();
             }
@@ -289,7 +289,7 @@ namespace Pra.Books.Wpf
                 }
             }
         }
-        
+
         private void RdbInMemory_Checked(object sender, RoutedEventArgs e)
         {
             bibService = new BookServiceMem();
@@ -305,7 +305,7 @@ namespace Pra.Books.Wpf
             WinAuthors winAuthors = new WinAuthors(bibService);
             winAuthors.ShowDialog();
             // code gaat hier verder van zodra winAuthors gesloten wordt
-            if(winAuthors.IsUpdated)
+            if (winAuthors.IsUpdated)
             {
                 PopulateAuthors();
                 RefreshSelectedBook();
